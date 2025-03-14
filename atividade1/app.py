@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 @app.before_request
 def log_request_info():
     hostname = socket.gethostname()
-    port = os.environ.get('PORT', '5000') # Pega a porta do ambiente ou
-    usa 5000 como padrão
+    port = os.environ.get('PORT', '5000') # Pega a porta do ambiente ou usa 5000 como padrão
     logger.info(f"Requisição recebida em {hostname} na porta {port}")
 
 def connect_db():
@@ -29,8 +28,7 @@ def env():
 @app.route('/oi')
 def hello():
     hostname = socket.gethostname()
-    port = os.environ.get('PORT', '5000') # Pega a porta do ambiente ou
-    usa 5000 como padrão
+    port = os.environ.get('PORT', '5000') # Pega a porta do ambiente ou usa 5000 como padrão
     logger.info(f"Requisição recebida em {hostname} na porta {port}")
     return f"Hello from {hostname} on port {port}!\n"
 
@@ -54,7 +52,7 @@ def add_task():
     return redirect('/')
 
 @app.route('/delete/<int:id>')
-    def delete_task(id):
+def delete_task(id):
     con = connect_db()
     cur = con.cursor()
     cur.execute("DELETE FROM tasks WHERE id=?", (id,))

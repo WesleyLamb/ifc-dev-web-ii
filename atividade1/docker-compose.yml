@@ -17,12 +17,12 @@ services:
       dockerfile: Dockerfile
     container_name: app2
     environment:
-    - PORT=5001
-  volumes:
-    - ./data:/app/db
-  depends_on:
-    cert-generator:
-      condition: service_healthy # Só inicia após o certificado estar pronto
+      - PORT=5001
+    volumes:
+      - ./data:/app/db
+    depends_on:
+      cert-generator:
+        condition: service_healthy # Só inicia após o certificado estar pronto
   app3:
     image: busybox:latest
     container_name: app3
@@ -58,9 +58,7 @@ services:
     command: >
       /bin/sh -c "
         apk add openssl &&
-        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout
-        /etc/letsencrypt/privkey.pem -out /etc/letsencrypt/fullchain.pem -subj
-        '/CN=localhost' &&
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/letsencrypt/privkey.pem -out /etc/letsencrypt/fullchain.pem -subj '/CN=localhost' &&
         chown -R 101:101 /etc/letsencrypt &&
         tail -f /dev/null # Mantém o container ativo após gerar os certificados
       "
