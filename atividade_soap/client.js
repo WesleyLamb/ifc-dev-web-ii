@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 app.post('/aspect-ratio', (req, res) => {
     const data = {x: req.body.width, y: req.body.height};
     mdcCalculator.CalculateMDC(data, function(err, res2) {
-        res.status(200).send({data: {"aspect-ration": `${req.body.width/res2.MDC}:${req.body.height/res2.MDC}`}});
+        res.status(200).send({data: {"aspect-ratio": `${req.body.width/res2.MDC}:${req.body.height/res2.MDC}`}});
     });
 });
 
